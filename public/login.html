@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BusTicket Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        /* Same styles as before (unchanged) */
+        .login-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+        .login-title {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            font-size: 2rem;
+        }
+        .error-message {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            color: #dc3545;
+            display: none;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: #fff;
+        }
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 0.5rem;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header text-center">
+                <i class="fas fa-bus fa-3x mb-3" style="color:#667eea;"></i>
+                <h1 class="login-title">BusTicket Pro</h1>
+                <p class="login-subtitle">Welcome back! Please login to continue</p>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <span id="errorText">Invalid credentials. Please try again.</span>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                    <label for="email"><i class="fas fa-envelope me-2"></i>Email Address</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" placeholder="Password" required>
+                    <label for="password"><i class="fas fa-lock me-2"></i>Password</label>
+                </div>
+
+                <button type="submit" class="btn login-btn" id="loginBtn">
+                    <span class="loading-spinner" id="loadingSpinner"></span>
+                    <span id="loginText">Login to Dashboard</span>
+                </button>
+            </form>
+
+            <div class="text-center mt-3">
+                <small class="text-muted">Don’t have an account? 
+                    <a href="/register.html">Create one</a>
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class LoginApp {
+            constructor() { this.init(); }
+            init() {
+                document.getElementById('loginForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleLogin();
+                });
+                this.checkAuthStatus();
+            }
+            checkAuthStatus() {
+                if (localStorage.getItem('isAuthenticated') === 'true') {
+                    window.location.href = '/';
+                }
+            }
+            async handleLogin() {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const btn = document.getElementById('loginBtn');
+                const txt = document.getElementById('loginText');
+                const spinner = document.getElementById('loadingSpinner');
+                const errorBox = document.getElementById('errorMessage');
+
+                btn.disabled = true; txt.textContent = 'Logging in...'; spinner.style.display = 'inline-block'; errorBox.style.display = 'none';
+
+                try {
+                    const res = await fetch('/api/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const result = await res.json();
+
+                    if (result.success) {
+                        localStorage.setItem('isAuthenticated', 'true');
+                        localStorage.setItem('userEmail', email);
+                        btn.innerHTML = '<i class="fas fa-check me-2"></i>Success!';
+                        btn.classList.add('btn-success');
+                        setTimeout(() => window.location.href = '/', 1000);
+                    } else {
+                        this.showError(result.error || 'Invalid credentials');
+                    }
+                } catch {
+                    this.showError('Network error. Please try again.');
+                } finally {
+                    if (!localStorage.getItem('isAuthenticated')) {
+                        btn.disabled = false;
+                        txt.textContent = 'Login to Dashboard';
+                        spinner.style.display = 'none';
+                    }
+                }
+            }
+            showError(msg) {
+                document.getElementById('errorText').textContent = msg;
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => new LoginApp());
+    </script>
+</body>
+</html>

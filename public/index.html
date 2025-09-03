@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket Booking - Home</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-bus me-2"></i>
+                BusTicket Pro
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#routes">Routes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt me-1"></i>Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <div class="slide-in-left">
+                        <div class="mb-4">
+                            <span class="badge welcome-badge">
+                                <i class="fas fa-user me-2"></i>
+                                Welcome, <span id="userEmail">User</span>!
+                            </span>
+                        </div>
+                        <h1 class="display-4 fw-bold text-white mb-4">
+                            Book Your Bus Tickets <br>
+                            <span class="text-warning">Anywhere, Anytime</span>
+                        </h1>
+                        <p class="lead text-white-50 mb-4">
+                            Discover comfortable and affordable bus travel across the country. 
+                            Book your tickets in advance and enjoy a hassle-free journey with our premium services.
+                        </p>
+                        <div class="d-flex gap-3 mb-4">
+                            <a href="#search-section" class="btn btn-warning btn-lg hover-lift">
+                                <i class="fas fa-search me-2"></i>Search Buses
+                            </a>
+                            <a href="#routes" class="btn btn-outline-light btn-lg hover-lift">
+                                <i class="fas fa-route me-2"></i>View Routes
+                            </a>
+                        </div>
+                        <div class="hero-features">
+                            <div class="hero-feature">
+                                <i class="fas fa-route"></i>
+                                <div class="feature-number">100+</div>
+                                <div class="feature-label">Routes</div>
+                            </div>
+                            <div class="hero-feature">
+                                <i class="fas fa-bus"></i>
+                                <div class="feature-number">50+</div>
+                                <div class="feature-label">Buses</div>
+                            </div>
+                            <div class="hero-feature">
+                                <i class="fas fa-star"></i>
+                                <div class="feature-number">4.8</div>
+                                <div class="feature-label">Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image slide-in-right text-center">
+                        <i class="fas fa-bus fa-10x text-white-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section id="search-section" class="py-5 search-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card search-card shadow-lg border-0">
+                        <div class="card-body">
+                            <div class="section-header text-center">
+                                <h3><i class="fas fa-search me-2 text-primary"></i>Find Your Perfect Bus</h3>
+                                <p>Search for available routes and book your journey</p>
+                            </div>
+                            <form id="searchForm">
+                                <div class="row g-4">
+                                    <div class="col-md-3">
+                                        <label class="form-label fw-bold"><i class="fas fa-map-marker-alt me-2 text-primary"></i>From</label>
+                                        <select class="form-select" id="fromCity" name="fromCity" required>
+                                            <option value="">Select departure city</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fw-bold"><i class="fas fa-map-marker me-2 text-success"></i>To</label>
+                                        <select class="form-select" id="toCity" name="toCity" required>
+                                            <option value="">Select arrival city</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fw-bold"><i class="fas fa-calendar-alt me-2 text-warning"></i>Travel Date</label>
+                                        <input type="date" class="form-control" id="travelDate" name="travelDate" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label fw-bold"><i class="fas fa-users me-2 text-info"></i>Passengers</label>
+                                        <select class="form-select" id="passengers" name="passengers" required>
+                                            <option value="1">1 Passenger</option>
+                                            <option value="2">2 Passengers</option>
+                                            <option value="3">3 Passengers</option>
+                                            <option value="4">4 Passengers</option>
+                                            <option value="5">5 Passengers</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-5">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5">
+                                        <i class="fas fa-search me-2"></i>Search Buses
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Routes Section -->
+    <section id="routes" class="py-5">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-route me-2"></i>Available Routes</h2>
+                <p>Choose from our wide selection of comfortable bus routes</p>
+            </div>
+            <div id="routesContainer" class="row g-4"><!-- Dynamic routes will appear here --></div>
+        </div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div class="modal fade" id="bookingModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="fas fa-ticket-alt me-2"></i>Book Your Tickets</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="selectedRouteInfo" class="mb-4"></div>
+                    <form id="bookingForm">
+                        <input type="hidden" id="selectedRouteId">
+                        
+                        <!-- Travel Date Display -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-calendar-alt me-2 text-warning"></i>Travel Date
+                                </label>
+                                <div class="form-control-plaintext border rounded p-2 bg-light">
+                                    <i class="fas fa-calendar me-2 text-primary"></i>
+                                    <span id="displayTravelDate">Loading...</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-users me-2 text-info"></i>Number of Passengers
+                                </label>
+                                <div class="form-control-plaintext border rounded p-2 bg-light">
+                                    <i class="fas fa-user me-2 text-primary"></i>
+                                    <span id="displayPassengerCount">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="passengerForms"></div>
+                        <div class="text-end mt-3"><h5>Total Amount: ₹<span id="totalAmount">0</span></h5></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" id="confirmBooking"><i class="fas fa-check me-2"></i>Confirm Booking</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-star me-2"></i>Why Choose Us</h2>
+                <p>Experience the best in bus travel with our premium services</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 text-center mb-4">
+                    <div class="feature-card fade-in">
+                        <i class="fas fa-clock fa-3x mb-4"></i>
+                        <h4>24/7 Booking</h4>
+                        <p class="text-muted">Book your tickets anytime, anywhere with our 24/7 online booking system. No more waiting in queues!</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center mb-4">
+                    <div class="feature-card fade-in" style="animation-delay:0.2s;">
+                        <i class="fas fa-shield-alt fa-3x mb-4"></i>
+                        <h4>Safe Travel</h4>
+                        <p class="text-muted">Travel with confidence knowing your safety is our top priority. Clean and regularly maintained buses.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center mb-4">
+                    <div class="feature-card fade-in" style="animation-delay:0.4s;">
+                        <i class="fas fa-dollar-sign fa-3x mb-4"></i>
+                        <h4>Best Prices</h4>
+                        <p class="text-muted">Get the best deals and competitive prices on all our routes. Save money while traveling in comfort.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 text-center">
+        <p>&copy; 2025 BusTicket Pro(Dattaprasad Shisode). All rights reserved.</p>
+    </footer>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
